@@ -11,6 +11,9 @@ public class CameraMovementOrbital : MonoBehaviour
 
     Vector3 m_CurrentRotation;
 
+    [SerializeField]
+    Vector2 m_RotationXLimits;
+
     [SerializeField] Transform target;
     [SerializeField] float smoothFollowValue = 10f;
 
@@ -36,6 +39,8 @@ public class CameraMovementOrbital : MonoBehaviour
         // add rotation
         m_CurrentRotation.y += _context.ReadValue<Vector2>().x * SpeedRotation;
         m_CurrentRotation.x += -_context.ReadValue<Vector2>().y * SpeedRotation;
+
+        m_CurrentRotation.x = Mathf.Clamp(m_CurrentRotation.x, m_RotationXLimits.x, m_RotationXLimits.y);
 
         // apply rotation
         transform.rotation = Quaternion.Euler(m_CurrentRotation.x, m_CurrentRotation.y, m_CurrentRotation.z);
