@@ -136,13 +136,11 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetInputMove(InputAction.CallbackContext _context)
     {
-        Debug.Log(_context.ReadValue<Vector2>()); 
         m_MovementInput = _context.ReadValue<Vector2>();
     }
 
     public void SetInputJump(InputAction.CallbackContext _context)
     {
-        Debug.Log("JUMP");
         if (!_context.started || (!m_CharacterController.isGrounded && JumpNumber >= m_Movement.MaxJumpNumber)) return;
         if (JumpNumber == 0) StartCoroutine(WaitForLanding());
         JumpNumber++;
@@ -160,7 +158,6 @@ public class PlayerMovement : MonoBehaviour
 
     public void SetInputSprint(InputAction.CallbackContext _context)
     {
-        Debug.Log("SPRINT" + IsSprinting);
         IsSprinting = _context.started || _context.performed;
     }
 
