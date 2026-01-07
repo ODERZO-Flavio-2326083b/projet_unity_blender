@@ -26,9 +26,6 @@ public class CameraMovementOrbital : MonoBehaviour
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-
         // init rotation
         m_CurrentRotation = transform.rotation.eulerAngles;
     }
