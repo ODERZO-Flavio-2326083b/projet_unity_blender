@@ -1,8 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.GraphicsBuffer;
 
-/* Handle Camera's rotation */
 public class CameraMovementOrbital : MonoBehaviour
 {
     [SerializeField]
@@ -43,4 +41,3 @@ public class CameraMovementOrbital : MonoBehaviour
         transform.rotation = Quaternion.Euler(m_CurrentRotation.x, m_CurrentRotation.y, m_CurrentRotation.z);
     }
 }
-

@@ -15,7 +15,7 @@ public class UIController : MonoBehaviour
 
     void Start()
     {
-        player = FindObjectOfType<PlayerController>();
+        player = FindFirstObjectByType<PlayerController>();
 
         SetScoreText();
         keyText.text = "Clé non obtenue :(";
@@ -23,7 +23,8 @@ public class UIController : MonoBehaviour
 
     public void SetScoreText()
     {
-        scoreText.text = "Score: " + player.score;
+        if (scoreText != null && player != null)
+            scoreText.text = "Score: " + player.score;
     }
 
     public void SetKeyText()

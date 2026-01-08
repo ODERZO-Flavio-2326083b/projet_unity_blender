@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
@@ -222,5 +223,19 @@ public class PlayerMovement : MonoBehaviour
             // if not grounded add gravity
             GravityVelocity += GRAVITY * m_Movement.GravityMultiplier * Time.deltaTime;
         }
+    }
+    public void Teleport(Vector3 position)
+    {
+        StopAllCoroutines();          
+        m_CharacterController.enabled = false;
+
+        transform.position = position;
+
+        GravityVelocity = 0;
+        Direction = Vector3.zero;
+        m_MovementInput = Vector2.zero;
+
+        m_CharacterController.enabled = true;
+        StartCoroutine(Moving());
     }
 }

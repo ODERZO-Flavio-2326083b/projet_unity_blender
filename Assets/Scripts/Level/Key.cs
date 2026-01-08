@@ -15,6 +15,8 @@ public class Key : MonoBehaviour
     [SerializeField]
     AudioClip pickUpSound;
 
+    PlayerController player;
+
     void Start()
     {
         audioSource = gameObject.GetComponentInChildren<AudioSource>();
@@ -22,19 +24,23 @@ public class Key : MonoBehaviour
 
     void Update()
     {
-        mesh.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        if (mesh) 
+            mesh.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController playerController = other.GetComponent<PlayerController>();
-            playerController.getKey();
+            if (mesh != null)
+            {
+                player = other.GetComponent<PlayerController>();
+                player.getKey();
 
-            audioSource.PlayOneShot(pickUpSound, 0.5f);
-            Destroy(mesh.gameObject);
-            
+                audioSource.PlayOneShot(pickUpSound, 0.5f);
+                Destroy(mesh.gameObject);
+                Destroy(gameObject, pickUpSound.length);
+            }
         }
     }
 }

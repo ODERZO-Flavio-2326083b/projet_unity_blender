@@ -1,7 +1,7 @@
 using UnityEngine;
 
 
-[CreateAssetMenu(fileName = "Movement", menuName = "Movement", order = 1)]
+[CreateAssetMenu(fileName = "Movement", menuName = "BUT/Movement", order = 1)]
 public class Movement : ScriptableObject
 {
     [SerializeField]

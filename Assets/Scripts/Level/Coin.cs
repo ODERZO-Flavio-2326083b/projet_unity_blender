@@ -8,12 +8,14 @@ public class Coin : MonoBehaviour
     public AudioSource audioSource;
 
     [SerializeField] 
-    private float rotationSpeed = 180f;
+    float rotationSpeed = 180f;
     [SerializeField] 
-    private Transform mesh;
+    Transform mesh;
 
     [SerializeField]
     AudioClip pickUpSound;
+
+    PlayerController player;
 
     void Start()
     {
@@ -22,19 +24,23 @@ public class Coin : MonoBehaviour
 
     void Update()
     {
-        mesh.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
+        if (mesh) 
+            mesh.Rotate(Vector3.up * rotationSpeed * Time.deltaTime);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            PlayerController playerController = other.GetComponent<PlayerController>();
-            playerController.addScore(10);
+            if (mesh != null)
+            {
+                player = other.GetComponent<PlayerController>();
+                player.addScore(10);
 
-            audioSource.PlayOneShot(pickUpSound, 0.5f);
-            Destroy(mesh.gameObject);
-            
+                audioSource.PlayOneShot(pickUpSound, 0.5f);
+                Destroy(mesh.gameObject);
+                Destroy(gameObject, pickUpSound.length);
+            }
         }
     }
 }
